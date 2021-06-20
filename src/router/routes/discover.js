@@ -25,6 +25,30 @@ const routes = [
             title: '歌手',
         },
         component: lazy(() => import('@/pages/Discover/Singer')),
+    },
+    {
+        path: '/discover/djradio',
+        exact: true,
+        meta: {
+            title: '主播电台',
+        },
+        component: lazy(() => import('@/pages/Discover/Djradio')),
+    },
+    {
+        path: '/discover/toplist',
+        exact: true,
+        meta: {
+            title: '排行榜',
+        },
+        component: lazy(() => import('@/pages/Discover/TopList')),
+    },
+    {
+        path: '/discover/latest',
+        exact: true,
+        meta: {
+            title: '最新音乐',
+        },
+        component: lazy(() => import('@/pages/Discover/LatestMusic')),
     }
 ]
 

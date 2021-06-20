@@ -27,7 +27,7 @@ export class NewSong extends Component {
     const { loading, musicList } = this.state;
     return (
       <div>
-        <LinkHeader title="最新音乐" route="/discover/newsong" />
+        <LinkHeader title="最新音乐" route="/discover/latest" />
         <Spin spinning={loading}>
           <div className={styles.content}>
             <div className={styles.list}>
@@ -46,19 +46,20 @@ export class NewSong extends Component {
                 ))}
             </div>
             <div className={styles.list}>
-              {musicList.length >4 && musicList
-                .slice(5, 10)
-                .map(({ id, name, picUrl, song, ...others }, index) => (
-                  <Song
-                    key={name}
-                    index={index + 5}
-                    id={id}
-                    name={name}
-                    picUrl={picUrl}
-                    song={song}
-                    {...others}
-                  />
-                ))}
+              {musicList.length > 4 &&
+                musicList
+                  .slice(5, 10)
+                  .map(({ id, name, picUrl, song, ...others }, index) => (
+                    <Song
+                      key={name}
+                      index={index + 5}
+                      id={id}
+                      name={name}
+                      picUrl={picUrl}
+                      song={song}
+                      {...others}
+                    />
+                  ))}
             </div>
           </div>
         </Spin>

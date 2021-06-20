@@ -19,6 +19,7 @@ function handleRequest(config){
 }
 
 function handleRequestError(error){
+    console.log(error)
     return Promise.reject(error);
 }
 
@@ -27,6 +28,7 @@ function handleResponse(response){
 }
 
 function handleResponseError(error){
+    console.log(error)
     const { response, message:msg } = error
     message.error(response.data.message || msg);
     return Promise.reject(response ? new Error(response.data.message || msg) : error)

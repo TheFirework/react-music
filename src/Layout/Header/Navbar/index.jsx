@@ -5,7 +5,6 @@ class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      current: 0,
       list: [
         {
           label: "个性推荐",
@@ -17,11 +16,11 @@ class Navbar extends Component {
         },
         {
           label: "主播电台",
-          path: "/discover/dj",
+          path: "/discover/djradio",
         },
         {
           label: "排行榜",
-          path: "/discover/ranking",
+          path: "/discover/toplist",
         },
         {
           label: "歌手",
@@ -29,19 +28,12 @@ class Navbar extends Component {
         },
         {
           label: "最新音乐",
-          path: "/discover/newSong",
+          path: "/discover/latest",
         },
       ],
     };
   }
-
-  handleClick = (index) => {
-    this.setState({
-      current: index,
-    });
-  };
   render() {
-    let current = this.state.current;
     return (
       <div className={styles.navbar}>
         {this.state.list.map(({ path, label }, index) => (

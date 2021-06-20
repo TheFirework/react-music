@@ -1,0 +1,26 @@
+@import url(@/static//style/variablers.less);
+
+.swiperPagination {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+
+    .bullet {
+        width: 8px;
+        height: 8px;
+        display: inline-block;
+        border-radius: 50%;
+        margin: 0 4px;
+        background: #000;
+        opacity: .15;
+        transition: 0.5s;
+        cursor: pointer;
+    }
+
+    .bulletActive {
+        opacity: 1;
+        background: @red;
+    }
+}

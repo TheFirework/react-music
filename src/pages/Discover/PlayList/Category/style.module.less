@@ -6,6 +6,8 @@
 }
 
 .category {
+    position: relative;
+
     .categoryBtn {
         cursor: pointer;
         padding: 5px 15px;
@@ -31,9 +33,43 @@
 
     .categoryName {
         width: 100px;
+        flex-shrink: 0;
         box-sizing: border-box;
         padding-left: 15px;
         color: #c7c7c7;
+    }
+
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 1;
+
+        .namebox {
+            min-width: 100px;
+            margin-bottom: 10px;
+        }
+
+        .name {
+            padding: 2px 10px;
+            border-radius: 20px;
+            color: #7d7c7d;
+            margin-bottom: 10px;
+            position: relative;
+            cursor: pointer;
+
+            &:hover {
+                color: #383839;
+            }
+
+
+            .isHot {
+                vertical-align: text-top;
+                font-size: 12px;
+                color: red;
+                transform: scale(0.5);
+                display: inline-block;
+            }
+        }
     }
 }
 
@@ -64,7 +100,8 @@
 }
 
 .popover {
-    width: 700px;
+    min-width: 750px;
+    position: relative;
 
     .allCategory {
         border-bottom: 1px solid #e5e5e5;
@@ -83,35 +120,5 @@
         }
     }
 
-    .content {
-        display: flex;
-        flex-wrap: wrap;
-        width: 600px;
 
-        .namebox {
-            width: 100px;
-        }
-
-        .name {
-            padding: 2px 10px;
-            border-radius: 20px;
-            color: #7d7c7d;
-            margin-bottom: 10px;
-            position: relative;
-            cursor: pointer;
-
-            &:hover {
-                color: #383839;
-            }
-
-
-            .isHot {
-                vertical-align: text-top;
-                font-size: 12px;
-                color: red;
-                transform: scale(0.5);
-                display: inline-block;
-            }
-        }
-    }
 }

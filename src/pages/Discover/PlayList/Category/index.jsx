@@ -88,6 +88,7 @@ export class Category extends Component {
             <div className={styles.wrapper}>
                 <div className={styles.category}>
                     <Popover
+                        getPopupContainer={(trigger) => trigger}
                         content={renderCategory()}
                         trigger="click"
                         placement="bottomRight">

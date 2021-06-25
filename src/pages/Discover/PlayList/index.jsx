@@ -3,6 +3,7 @@ import Highquality from './Highquality'
 import Category from './Category'
 import Playlists from '@/components/Playlists'
 import Pagination from '@/components/Pagination'
+import Spinner from '@/components/Spinner'
 import styles from './style.module.less'
 import {
     getHighqualitySongList,
@@ -25,6 +26,7 @@ export class index extends Component {
                 pageSize: 100,
                 total: 0,
             },
+            loading: false,
         }
     }
     componentDidMount() {
@@ -44,6 +46,7 @@ export class index extends Component {
                 sub,
             })
         })
+        this.setLoading(true)
         const { currentCat, pagination } = this.state
         getPlaylist({ cat: currentCat, limit: pagination.pageSize }).then(
             ({ playlists, total }) => {
@@ -53,6 +56,7 @@ export class index extends Component {
                         ...pagination,
                         total,
                     },
+                    loading: false,
                 })
             }
         )
@@ -66,6 +70,7 @@ export class index extends Component {
         this.setState({
             currentCat: cat,
         })
+        this.setLoading(true)
         const pagination = this.state
         getPlaylist({ cat, offset: 0, limit: pagination.pageSize }).then(
             ({ playlists, total }) => {
@@ -76,6 +81,7 @@ export class index extends Component {
                         total,
                         page: 1,
                     },
+                    loading: false,
                 })
             }
         )
@@ -88,6 +94,7 @@ export class index extends Component {
     handlePageChange = (page) => {
         const { pagination, currentCat } = this.state
         const offset = (page - 1) * pagination.pageSize
+        this.setLoading(true)
         getPlaylist({
             cat: currentCat,
             offset,
@@ -100,7 +107,13 @@ export class index extends Component {
                     total,
                     page,
                 },
+                loading: false,
             })
+        })
+    }
+    setLoading = (loading) => {
+        this.setState({
+            loading,
         })
     }
     render() {
@@ -112,6 +125,7 @@ export class index extends Component {
             sub,
             playlists,
             pagination,
+            loading,
         } = this.state
         return (
             <div className={styles.wrapper}>
@@ -125,12 +139,20 @@ export class index extends Component {
                         setCurrentCatgory={this.handleSetCurrentCatgory}
                         onSelectCategory={this.handleSelectCategory}
                     />
-                    <Playlists playlist={playlists} />
-                    <Pagination
-                        current={pagination.page}
-                        total={pagination.total}
-                        onChange={this.handlePageChange}
-                    />
+                    <div className={styles.content}>
+                        {loading ? (
+                            <Spinner spinning={loading} />
+                        ) : (
+                            <>
+                                <Playlists playlist={playlists} />
+                                <Pagination
+                                    current={pagination.page}
+                                    total={pagination.total}
+                                    onChange={this.handlePageChange}
+                                />
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
         )

@@ -1,17 +1,18 @@
-import React from 'react';
+import React from 'react'
 import PropTypes from 'prop-types'
 
 class SvgIcon extends React.Component {
     static defaultProps = {
         iconSize: '1em',
         svgClass: 'svg-icon',
-        color:'currentColor'
+        color: 'currentColor',
     }
     static propTypes = {
         color: PropTypes.string,
         size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         className: PropTypes.string,
-        style: PropTypes.object
+        style: PropTypes.object,
+        icon: PropTypes.string.isRequired,
     }
     get iconSize() {
         let size = this.props.size
@@ -39,8 +40,14 @@ class SvgIcon extends React.Component {
     render() {
         const { svgClass, className, style } = this.props
         return (
-            <svg className={`${svgClass} ${className}`}
-                style={{ 'fill': this.props.color, 'width': this.iconSize, 'height': this.iconSize, ...style }}
+            <svg
+                className={`${svgClass} ${className}`}
+                style={{
+                    fill: this.props.color,
+                    width: this.iconSize,
+                    height: this.iconSize,
+                    ...style,
+                }}
                 aria-hidden="true">
                 <use xlinkHref={this.iconName}></use>
             </svg>
@@ -48,4 +55,4 @@ class SvgIcon extends React.Component {
     }
 }
 
-export default SvgIcon;
+export default SvgIcon

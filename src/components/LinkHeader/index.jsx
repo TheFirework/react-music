@@ -6,17 +6,18 @@ import styles from './style.module.less'
 export class LinkHeader extends Component {
     static propTypes = {
         title: PropTypes.string.isRequired,
-        route: PropTypes.string.isRequired,
+        route: PropTypes.string,
     }
     handleClick = () => {
         this.props.history.push(this.props.route)
     }
     render() {
+        const { route } = this.props
         return (
             <div className={styles.wrapper}>
                 <span className={styles.content} onClick={this.handleClick}>
                     {this.props.title}
-                    <RightOutlined className={styles.icon} />
+                    {route && <RightOutlined className={styles.icon} />}
                 </span>
             </div>
         )

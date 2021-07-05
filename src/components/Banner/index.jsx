@@ -6,16 +6,17 @@ import BannerItem from './BannerItem'
 import BannerPagination from './BannerPagination'
 import BannerButton from './BannerButton'
 import styles from './style.module.less'
-import { getBanner } from '../../../../api/personalized'
 
 export class Banner extends Component {
     static defaultProps = {
+        banners: [],
         autoplay: true,
         interval: 2500,
         height: 200,
     }
 
     static propTypes = {
+        banners: PropTypes.array.isRequired,
         autoplay: PropTypes.bool,
         interval: PropTypes.number,
         height: PropTypes.number,
@@ -25,16 +26,11 @@ export class Banner extends Component {
         super(props)
         this.state = {
             current: 0,
-            banners: [],
         }
     }
+
     componentDidMount() {
-        getBanner().then((banners) => {
-            this.setState({
-                banners,
-            })
-            this.autoPlay()
-        })
+        this.autoPlay()
     }
 
     componentWillUnmount() {
@@ -44,9 +40,9 @@ export class Banner extends Component {
     autoPlay = () => {
         if (!this.props.autoplay) return
         this.timer = setInterval(() => {
-            if (!this.state.banners.length) return
+            if (!this.props.banners.length) return
             this.setCurrent(
-                (this.state.current + 1) % this.state.banners.length
+                (this.state.current + 1) % this.props.banners.length
             )
         }, this.props.interval)
     }
@@ -73,7 +69,7 @@ export class Banner extends Component {
     }
 
     setCurrent = (index) => {
-        let { banners } = this.state
+        let { banners } = this.props
         if (index > banners.length - 1) {
             index = 0
         }
@@ -86,7 +82,8 @@ export class Banner extends Component {
     }
 
     genClassName = (index) => {
-        const { banners, current } = this.state
+        const { current } = this.state
+        const { banners } = this.props
         const len = banners.length
         const left = (current - 1 + len) % len
         const right = (current + 1) % len
@@ -99,8 +96,8 @@ export class Banner extends Component {
     }
 
     render() {
-        const { current, banners } = this.state
-        const { height } = this.props
+        const { current } = this.state
+        const { height, banners } = this.props
         return (
             <div>
                 {banners && (
@@ -119,6 +116,7 @@ export class Banner extends Component {
                                         {
                                             targetId,
                                             imageUrl,
+                                            pic,
                                             typeTitle,
                                             titleColor,
                                             targetType,
@@ -135,7 +133,7 @@ export class Banner extends Component {
                                                 key={index}
                                                 typeTitle={typeTitle}
                                                 titleColor={titleColor}
-                                                imageUrl={imageUrl}
+                                                imageUrl={imageUrl || pic}
                                                 className={className}
                                                 onClick={
                                                     isMusicType

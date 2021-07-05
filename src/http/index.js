@@ -27,7 +27,6 @@ function handleResponse(response) {
 }
 
 function handleResponseError(error) {
-    console.log(error)
     const { response, message: msg } = error
     message.error(response.data.message || msg)
     return Promise.reject(

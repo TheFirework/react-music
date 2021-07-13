@@ -13,7 +13,7 @@ export class PaygiftItem extends Component {
     }
 
     render() {
-        const { id, name, rcmdText, picUrl, lastProgramName, originalPrice } =
+        const { name, rcmdText, picUrl, lastProgramName, originalPrice } =
             this.props
         return (
             <div className={styles.wrapper}>

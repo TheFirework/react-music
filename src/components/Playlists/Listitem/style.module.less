@@ -1,3 +1,5 @@
+@import url(@/static/style/variablers.less);
+
 .wrapper {
     position: relative;
     width: 18.75%;
@@ -10,6 +12,7 @@
     padding-top: 100%;
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid @borderColor;
     position: relative;
 
     img {
@@ -23,8 +26,12 @@
 
     .playCount {
         position: absolute;
-        top: 5px;
-        right: 10px;
+        top: 0;
+        left: 0;
+        right: 0;
+        justify-content: flex-end;
+        padding: 4px 10px;
+        background-image: linear-gradient(rgba(193, 195, 194, 0.6), rgba(228, 228, 228, 0.2));
     }
 
     .playIcon {

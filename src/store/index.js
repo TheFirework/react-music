@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import reducer from './reducers'
@@ -10,7 +10,11 @@ if (process.env.NODE_ENV !== 'production') {
 
 const store = createStore(
     reducer,
-    applyMiddleware(...middleware)
+    compose(
+        applyMiddleware(thunk),
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
+            window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
 )
 
 export default store

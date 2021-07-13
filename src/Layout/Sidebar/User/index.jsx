@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Avatar, Popover } from 'antd'
 import { UserOutlined, CaretRightOutlined } from '@ant-design/icons'
 import LoginModal from '../LoginModal'
@@ -9,7 +10,6 @@ export class User extends Component {
         super(props)
         this.state = {
             showLoginModal: false,
-            isLogged: false,
         }
     }
     handleShowLoginModal = (value) => {
@@ -19,17 +19,36 @@ export class User extends Component {
     }
 
     render() {
-        const { showLoginModal, isLogged } = this.state
+        const { showLoginModal } = this.state
+        const { isLogged, user } = this.props
+
+        const content = (
+            <div>
+                <p>Content</p>
+                <p>Content</p>
+            </div>
+        )
+
         return (
             <div className={styles.user}>
                 <Avatar
                     size={40}
                     icon={<UserOutlined />}
+                    src={user.profile.avatarUrl}
                     className={styles.avatar}
                 />
                 {isLogged ? (
-                    <Popover>
-                        <span className={styles.username}>退出登录</span>
+                    <Popover
+                        placement="rightTop"
+                        content={content}
+                        trigger="click">
+                        <span className={styles.username}>
+                            {user.profile.nickname}
+                        </span>
+                        <CaretRightOutlined
+                            styles={{ color: 'rgba(140,140,140,1)' }}
+                            className={styles.icon}
+                        />
                     </Popover>
                 ) : (
                     <>
@@ -55,4 +74,7 @@ export class User extends Component {
     }
 }
 
-export default User
+export default connect((state) => ({
+    isLogged: state.app.isLogged,
+    user: state.app.user,
+}))(User)

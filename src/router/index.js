@@ -1,52 +1,36 @@
-import { Suspense } from 'react'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+const ROOT = '/'
 
+const DISCOVERY = '/discovery'
+const RECOMMEND = `${DISCOVERY}/recommend`
+const PLAYLIST = `${DISCOVERY}/playlist`
+const SINGER = `${DISCOVERY}/singer`
+const TOP_LIST = `${DISCOVERY}/toplist`
+const LATEST_MUSIC = `${DISCOVERY}/latestmusic`
+const DJRADIO = `${DISCOVERY}/djradio`
 
-const Router = (props) => {
-    return (
-        <BrowserRouter>
-            <Switch>
-                {props.children}
-            </Switch>
-        </BrowserRouter>
-    )
+const FM = '/fm'
+
+const VIDEO = '/video'
+
+const FRIEND = '/friend'
+
+const PAGE404 = '/404'
+const DEFAULT_ROUTE = DISCOVERY
+
+const ROUTES = {
+    ROOT,
+    DISCOVERY,
+    DEFAULT_ROUTE,
+    RECOMMEND,
+    PLAYLIST,
+    SINGER,
+    TOP_LIST,
+    LATEST_MUSIC,
+    DJRADIO,
+    FM,
+    FRIEND,
+    VIDEO,
+    PAGE404,
 }
 
-function renderRoutes(routes) {
-
-    return (
-        <Suspense fallback={<div>Loading...</div>}>
-            {
-                routes ? (
-                    <Switch>
-                        {
-                            routes.map((route, i) => {
-                                if (route.redirect) {
-                                    return (
-                                        <Redirect to={route.redirect} component={route.component} key={route.path || i}/>
-                                    )
-                                } else {
-                                    return (
-                                        <Route
-                                            key={route.path || i}
-                                            path={route.path}
-                                            exact={route.exact}
-                                            strict={route.strict}
-                                            render={props => (<route.component {...props} routes={route.routes} />)
-                                            }
-                                        />
-                                    )
-                                }
-                            })
-                        }
-                    </Switch>
-                ) : null
-            }
-        </Suspense>
-    )
-}
-
-export {
-    Router,
-    renderRoutes
-}
+export default ROUTES

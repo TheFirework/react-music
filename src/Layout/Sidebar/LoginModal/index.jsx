@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Modal, Form, Input } from 'antd'
 import { MobileOutlined, LockOutlined } from '@ant-design/icons'
 import styles from './style.module.less'
 import { login } from '@/api/user'
+import * as ACTION from '../../../store/app/action'
 export class LoginModal extends Component {
     formRef = React.createRef()
 
@@ -19,11 +21,19 @@ export class LoginModal extends Component {
         this.props.onClose(false)
     }
     handleLogin = async (payload) => {
-        console.log(payload)
-        const result = await login(payload)
-        console.log(result)
-        if (result) {
-        }
+        login(payload).then(
+            (result) => {
+                if (result) {
+                    this.props.login({
+                        ...result,
+                        userId: result.profile.userId,
+                    })
+                }
+            },
+            (error) => {
+                console.log(error)
+            }
+        )
     }
     render() {
         const { show } = this.props
@@ -88,4 +98,4 @@ export class LoginModal extends Component {
     }
 }
 
-export default LoginModal
+export default connect(null, { login: ACTION.login })(LoginModal)

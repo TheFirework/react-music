@@ -34,7 +34,7 @@ export class Banner extends Component {
     }
 
     componentWillUnmount() {
-        this.timer && clearInterval(this.timer)
+        clearInterval(this.timer)
     }
 
     autoPlay = () => {
